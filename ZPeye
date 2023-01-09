@@ -1,0 +1,30 @@
+
+import os
+import subprocess
+ip_address = input("Enter an IP address: ")
+print("What would you like to do with this IP address?")
+print("1. Ping the IP address")
+print("2. Perform a traceroute to the IP address")
+print("3. Look up the DNS record for the IP address")
+print("4. Exit the program")
+selection = input("Enter your selection: ")
+if selection == "1":
+    # Ping the IP address
+    response = os.system("ping -c 1 " + ip_address)
+    if response == 0:
+        print(ip_address + " is reachable")
+    else:
+        print(ip_address + " is not reachable")
+elif selection == "2":
+  
+    traceroute = subprocess.run(["traceroute", ip_address], capture_output=True)
+    print(traceroute.stdout.decode())
+elif selection == "3":
+    # Look up the DNS record for the IP address
+    dns_record = subprocess.run(["nslookup", ip_address], capture_output=True)
+    print(dns_record.stdout.decode())
+elif selection == "4":
+    # Exit the program
+    print("Exiting the program")
+else:
+    print("Invalid selection")
